@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erzhuo <erzhuo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 21:17:20 by erzhuo            #+#    #+#             */
-/*   Updated: 2026/01/05 21:57:00 by erzhuo           ###   ########.fr       */
+/*   Created: 2026/01/05 22:02:29 by erzhuo            #+#    #+#             */
+/*   Updated: 2026/01/05 22:05:37 by erzhuo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, const char *s2);
-char	*ft_strdup(const char *s);
-char	*ft_substr(const char *s, unsigned int start, size_t len);
-
-#endif
+char    *get_next_line(int fd)
+{
+    
+}

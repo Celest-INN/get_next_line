@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erzhuo <erzhuo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 21:17:20 by erzhuo            #+#    #+#             */
-/*   Updated: 2026/01/05 21:57:00 by erzhuo           ###   ########.fr       */
+/*   Created: 2026/01/05 22:02:23 by erzhuo            #+#    #+#             */
+/*   Updated: 2026/01/05 22:05:33 by erzhuo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+size_t ft_strlen(char *s)
+{
+    size_t  i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+    i = 0;
+    if (!s)
+        return(0);
+    while (s[i])
+        i++;
+    return (i);
+}
 
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, const char *s2);
-char	*ft_strdup(const char *s);
-char	*ft_substr(const char *s, unsigned int start, size_t len);
-
-#endif
+char    *ft_strchr(char *s, int c)
+{
+    
+}
