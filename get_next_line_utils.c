@@ -6,7 +6,7 @@
 /*   By: erzhuo <erzhuo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 22:02:23 by erzhuo            #+#    #+#             */
-/*   Updated: 2026/01/09 22:14:39 by erzhuo           ###   ########.fr       */
+/*   Updated: 2026/01/11 18:16:08 by erzhuo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 
 size_t	ft_strlen(char *s)
 {
-    size_t  i;
+	size_t	i;
 
-    i = 0;
-    if (!s)
-        return(0);
-    while (s[i])
-        i++;
-    return (i);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
 
 char	*ft_strchr(char *s, int c)
 {
-    if (!s)
+	if (!s)
 		return (NULL);
 	while (*s)
 	{
