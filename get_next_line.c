@@ -6,7 +6,7 @@
 /*   By: erzhuo <erzhuo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 22:02:29 by erzhuo            #+#    #+#             */
-/*   Updated: 2026/01/17 15:54:44 by erzhuo           ###   ########.fr       */
+/*   Updated: 2026/01/17 17:01:37 by erzhuo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,45 +61,56 @@ char	*get_line_before_seperator(char *stash)
 	return (ft_substr(stash, 0, i));
 }
 
-char	*free_stash(char *stash, unsigned int i, size_t len)
+char	*free_stash_and_return_new_stash(char *stash)
 {
-	char	*nouveau_stash;
+	char			*nouveau_stash;
+	unsigned int	i;
 
-	nouveau_stash = ft_substr(stash, i, len);
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (stash[i] == '\n')
+		i++;
+	nouveau_stash = ft_substr(stash, i, ft_strlen(stash + i));
 	free (stash);
 	return (nouveau_stash);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash = NULL;
 	char		*line;
-	size_t		i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (stash && stash[0] == '\0')
-	{
+	if (stash != NULL && stash[0] == '\0')
 		return (free(stash), stash = NULL, NULL);
-	}
 	stash = read_and_stash(fd, stash);
 	if (!stash)
 		return (NULL);
 	line = get_line_before_seperator(stash);
 	if (!line)
 		return (free(stash), stash = NULL, NULL);
-	i = 0;
-	while (stash[i] && stash[i] != '\n')
-		i++;
-	if (stash[i] == '\n')
-		i++;
-	stash = free_stash(stash, i, ft_strlen(stash + i));
+	stash = free_stash_and_return_new_stash(stash);
 	return (line);
 }
 
 // static char	*stash; // stash au debut est null
 // if (stash && stash[0] == '\0') 
 // si stash est null, on peut pas faire stash[0]
+
+// get_next_line 中， stash + i 不是“加法”，而是：指针向后移动 i 个字符
+// a static variable retains their value between multiple function calls.
+
+// si on free stash, stash n'est pas forcement null
+// mais si stash est null, on n'a plus besoin de free
+
+// test de leak != test de malloc
+// test de leak : voir si tu free tous les malloc
+// test de malloc : 
+// quand le malloc fail, est-ce que le programme crash 
+// il devrait pas crasher... il doit simplement exit
+// et si le programme a du leak (il devrait pas en avoir)
 
 // #include <fcntl.h>
 // #include <stdio.h>
@@ -131,19 +142,3 @@ char	*get_next_line(int fd)
 // 	close(fd);
 // 	return (0);
 // }
-
-// get_line: 从 stash 里“切”出第一行，作为返回值。
-// // verification??
-
-// get_next_line 中， stash + i 不是“加法”，而是：指针向后移动 i 个字符
-// a static variable retains their value between multiple function calls.
-
-// si on free stash, stash n'est pas forcement null
-// mais si stash est null, on n'a plus besoin de free
-
-// test de leak != test de malloc
-// test de leak : voir si tu free tous les malloc
-// test de malloc : 
-// quand le malloc fail, est-ce que le programme crash 
-// il devrait pas crasher... il doit simplement exit
-// et si le programme a du leak (il devrait pas en avoir)
