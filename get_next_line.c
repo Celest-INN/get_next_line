@@ -6,7 +6,7 @@
 /*   By: erzhuo <erzhuo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 22:02:29 by erzhuo            #+#    #+#             */
-/*   Updated: 2026/01/11 18:23:51 by erzhuo           ###   ########.fr       */
+/*   Updated: 2026/01/17 15:54:44 by erzhuo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*read_and_stash(int fd, char *stash)
 
 	buf = malloc (BUFFER_SIZE + 1);
 	if (!buf)
-		return (NULL);
+		return (free(stash), NULL);
 	r = 1;
 	while (!ft_strchr(stash, '\n') && r > 0)
 	{
@@ -72,13 +72,13 @@ char	*free_stash(char *stash, unsigned int i, size_t len)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash; // stash au debut est null
+	static char	*stash;
 	char		*line;
 	size_t		i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (stash && stash[0] == '\0') // si stash est null, on peut pas faire stash[0]
+	if (stash && stash[0] == '\0')
 	{
 		return (free(stash), stash = NULL, NULL);
 	}
@@ -96,6 +96,10 @@ char	*get_next_line(int fd)
 	stash = free_stash(stash, i, ft_strlen(stash + i));
 	return (line);
 }
+
+// static char	*stash; // stash au debut est null
+// if (stash && stash[0] == '\0') 
+// si stash est null, on peut pas faire stash[0]
 
 // #include <fcntl.h>
 // #include <stdio.h>
@@ -139,4 +143,7 @@ char	*get_next_line(int fd)
 
 // test de leak != test de malloc
 // test de leak : voir si tu free tous les malloc
-// test de malloc : quand le malloc fail, est-ce que le programme crash (il devrait pas crasher... il doit simplement exit) et si le programme a du leak (il devrait pas en avoir)
+// test de malloc : 
+// quand le malloc fail, est-ce que le programme crash 
+// il devrait pas crasher... il doit simplement exit
+// et si le programme a du leak (il devrait pas en avoir)
